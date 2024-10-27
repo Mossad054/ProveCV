@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resume_styles/template2.css') }}">
+    <title>{{ resume.name }}'s CV</title>
+</head>
+<body>
+    <div class="cv">
+        <header>
+            <div class="profile-info">
+                <h1>{{ resume.name }}</h1>
+                <p class="title">Professional Title</p>
+            </div>
+            <div class="contact-info">
+                <p><i class="icon-email"></i> {{ resume.email }}</p>
+                <p><i class="icon-phone"></i> {{ resume.phone }}</p>
+            </div>
+        </header>
+        <main>
+            <aside>
+                <section class="skills">
+                    <h2>Skills</h2>
+                    {{ resume.skills | safe }}
+                </section>
+                <section class="education">
+                    <h2>Education</h2>
+                    {{ resume.education | safe }}
+                </section>
+            </aside>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resume_styles/template2.css') }}">
+    <title>{{ resume.name }}'s CV</title>
+</head>
+<body>
+    <div class="cv">
+        <header>
+            <div class="profile-info">
+                <h1>{{ resume.name }}</h1>
+                <p class="title">Professional Title</p>
+            </div>
+            <div class="contact-info">
+                <p><i class="icon-email"></i> {{ resume.email }}</p>
+                <p><i class="icon-phone"></i> {{ resume.phone }}</p>
+            </div>
+        </header>
+        <main>
+            <aside>
+                <section class="skills">
+                    <h2>Skills</h2>
+                    {{ resume.skills | safe }}
+                </section>
+                <section class="education">
+                    <h2>Education</h2>
+                    {{ resume.education | safe }}
+                </section>
+            </aside>
+            <article>
+                <section class="summary">
+                    <h2>Professional Summary</h2>
+                    <p>{{ resume.summary | safe }}</p>
+                </section>
+                <section class="experience">
+                    <h2>Work Experience</h2>
+                    {{ resume.experience | safe }}
+                </section>
+            </article>
+        </main>
+        <footer>
+            <p>References available upon request</p>
+        </footer>
+    </div>
+</body>
+</html>

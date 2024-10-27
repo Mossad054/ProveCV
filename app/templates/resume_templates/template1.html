@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/resume_styles/template1.css') }}">
+    <title>{{ resume.name }}'s Resume</title>
+</head>
+<body>
+    <div class="resume">
+        <header>
+            <h1>{{ resume.name }}</h1>
+            <p class="contact-info">
+                <span class="email">{{ resume.email }}</span> |
+                <span class="phone">{{ resume.phone }}</span>
+            </p>
+        </header>
+        <main>
+            <section class="experience">
+                <h2>Work Experience</h2>
+                {{ resume.experience | safe }}
+            </section>
+            <section class="education">
+                <h2>Education</h2>
+                {{ resume.education | safe }}
+            </section>
+            <section class="skills">
+                <h2>Skills</h2>
+                {{ resume.skills | safe }}
+            </section>
+        </main>
+    </div>
+</body>
+</html>

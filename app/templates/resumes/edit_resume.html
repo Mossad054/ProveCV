@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Edit Resume</h1>
+    <form method="POST" action="{{ url_for('resume.update', resume_id=resume.id) }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }} {{ form.name(size=32, value=resume.name) }}
+        </div>
+        <div class="form-group">
+            {{ form.email.label }} {{ form.email(size=32, value=resume.email) }}
+        </div>
+        <div class="form-group">
+            {{ form.phone.label }} {{ form.phone(size=32, value=resume.phone) }}
+        </div>
+        <div class="form-group">
+            {{ form.experience.label }} {{ form.experience(rows=5, value=resume.experience) }}
+        </div>
+        <div class="form-group">
+            {{ form.education.label }} {{ form.education(rows=5, value=resume.education) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Update Resume</button>
+    </form>
+</div>
+{% endblock %}
