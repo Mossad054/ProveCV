@@ -1,6 +1,7 @@
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash
 from . import db
 
 class User(db.Model, UserMixin):
@@ -18,17 +19,34 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return f'<User {self.username}>'
 
+class Template(db.Model):
+    __tablename__ = 'templates'
+    name = db.Column(db.String(100), primary_key=True)
+    content = db.Column(db.Text)
+    is_active = db.Column(db.Boolean, default=True)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+
+    def __init__(self, name, *args, **kwargs):
+        if not name:
+            existing_templates = Template.query.filter(
+                Template.name.like('template%')
+            ).order_by(Template.name.desc()).first()
+            
+            if existing_templates:
+                last_num = int(existing_templates.name.replace('template', ''))
+                name = f'template{last_num + 1}'
+            else:
+                name = 'template1'
+                
+        super().__init__(name=name, *args, **kwargs)
+
 class Resume(db.Model):
     __tablename__ = 'resumes'
     
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), nullable=False)  # Name/title of the resume
-    content = db.Column(db.Text, nullable=False)      # Content in JSON or raw text format
+    name = db.Column(db.String(150), nullable=False)
+    template_name = db.Column(db.String(100), db.ForeignKey('templates.name'))
+    content = db.Column(db.JSON, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
-    updated_at = db.Column(db.DateTime, onupdate=datetime.utcnow)
-    
-    # Foreign key to link each resume to a user
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    
-    def __repr__(self):
-        return f'<Resume {self.name} for User ID {self.user_id}>'

@@ -16,5 +16,10 @@ class LoginForm(FlaskForm):
 
 class ResumeForm(FlaskForm):
     name = StringField('Resume Title', validators=[DataRequired(), Length(max=150)])
-    content = TextAreaField('Content', validators=[DataRequired()])
-    submit = SubmitField('Save Resume')
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    phone = StringField('Phone', validators=[DataRequired()])
+    professional_summary = TextAreaField('Professional Summary', validators=[DataRequired()])
+    experience = TextAreaField('Work Experience', validators=[DataRequired()])
+    education = TextAreaField('Education', validators=[DataRequired()])
+    skills = TextAreaField('Skills', validators=[DataRequired()])
+    submit = SubmitField('Create Resume')
