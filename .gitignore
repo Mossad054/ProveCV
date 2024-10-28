@@ -1,0 +1,27 @@
+# Python virtual environment
+venv/
+path/to/venv/
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment specific files
+bin/
+lib/
+include/
+lib64
+pyvenv.cfg
+.env
+
+# pip package files
+*.egg
+*.egg-info/
+dist/
+build/
+eggs/
+parts/
+var/
+sdist/
+develop-eggs/
+.installed.cfg
+*.egg-info
