@@ -1,0 +1,168 @@
+{% extends "base.html" %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<style>
+    .login-container {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(to bottom, #f0fffd, #ffffff);
+        padding: 20px;
+    }
+    .login-header {
+        font-size: 32px;
+        color: #4a5568;
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 600;
+    }
+    .login-form {
+        background: white;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        font-size: 16px;
+        color: #4a5568;
+        margin-bottom: 8px;
+    }
+    .form-control {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.2s;
+    }
+    .form-control:focus {
+        outline: none;
+        border-color: #2EC88F;
+    }
+    .btn {
+        width: 100%;
+        padding: 12px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+    .btn:hover {
+        opacity: 0.9;
+    }
+    .btn-primary {
+        background-color: #2EC88F;
+        color: white;
+        border: none;
+    }
+    .social-login {
+        margin-top: 20px;
+    }
+    .divider {
+        display: flex;
+        align-items: center;
+        text-align: center;
+        margin: 20px 0;
+        color: #718096;
+    }
+    .divider::before,
+    .divider::after {
+        content: '';
+        flex: 1;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .divider span {
+        padding: 0 10px;
+    }
+    .social-btn {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 1px solid #e2e8f0;
+        border-radius: 8px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        cursor: pointer;
+    }
+    .social-btn img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+    .linkedin-btn {
+        background: #0077B5;
+        color: white;
+        border: none;
+    }
+    .forgot-password {
+        text-align: center;
+        margin-top: 15px;
+    }
+    .forgot-password a {
+        color: #4299e1;
+        text-decoration: none;
+    }
+    .register-link {
+        text-align: center;
+        margin-top: 20px;
+        color: #4a5568;
+    }
+    .register-link a {
+        color: #4299e1;
+        text-decoration: none;
+    }
+    .error {
+        color: #e53e3e;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+</style>
+
+<div class="login-container">
+    <h1 class="login-header">Please, sign in to edit your resume for free!</h1>
+    <div class="login-form">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.email(class="form-control", placeholder="Enter your email") }}
+                {% for error in form.email.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.password(class="form-control", placeholder="Enter your password") }}
+                {% for error in form.password.errors %}
+                    <span class="error">{{ error }}</span>
+                {% endfor %}
+            </div>
+            {{ form.submit(class="btn btn-primary", value="Continue with email") }}
+            
+            <div class="forgot-password">
+                <a href="{{ url_for('auth.logout') }}">Forgot your password?</a>
+            </div>
+
+            <div class="divider">
+                <span>or</span>
+            </div>
+        </form>
+        
+        <div class="register-link">
+            Do not have an account? <a href="{{ url_for('auth.signup') }}">Register now</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Resume</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        :root {
+            --primary-color: #30bd89;
+            --border-color: #e2e8f0;
+            --text-color: #4a5568;
+            --bg-color: #f7fafc;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .preview-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 20px;
+        }
+
+        h1 {
+            color: var(--text-color);
+            font-size: 24px;
+            margin-bottom: 30px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(46, 200, 143, 0.1);
+        }
+
+        .enhance-btn {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .enhance-btn:hover {
+            opacity: 1;
+        }
+
+        .section-title {
+            font-size: 18px;
+            color: var(--text-color);
+            margin: 30px 0 15px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .btn:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        /* Resume Preview Styles */
+        .preview-section {
+            font-size: 14px;
+        }
+
+        .preview-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .preview-header h2 {
+            font-size: 24px;
+            margin: 0;
+            color: var(--text-color);
+        }
+
+        .preview-header p {
+            color: #718096;
+            margin: 5px 0;
+        }
+
+        .preview-section h3 {
+            font-size: 16px;
+            color: var(--text-color);
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 5px;
+            margin: 20px 0 10px;
+        }
+
+        .experience-item, .education-item {
+            margin-bottom: 15px;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+        }
+
+        .item-title {
+            font-weight: 500;
+        }
+
+        .item-date {
+            color: #718096;
+        }
+
+        .skills-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-tag {
+            background: #f7fafc;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-section">
+            <h1>Create Your Resume</h1>
+            <form method="POST" class="resume-form">
+                <div class="section-title">Personal Information</div>
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" name="name" placeholder="e.g., John Maina" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="title">Professional Title</label>
+                    <input type="text" id="title" name="title" placeholder="e.g., Senior Software Engineer" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="e.g., john@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="e.g., +254 (712) 345-678">
+                </div>
+
+                <div class="form-group">
+                    <label for="location">Location</label>
+                    <input type="text" id="location" name="location" placeholder="e.g., Nairobi, NBO">
+                </div>
+
+                <div class="section-title">Professional Summary</div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <textarea id="summary" name="summary" rows="4" placeholder="Briefly explain why you're a great fit for the role"></textarea>
+                        <button type="button" class="enhance-btn" onclick="enhanceText('summary')">Enhance with AI</button>
+                    </div>
+                </div>
+                
+                <div class="section-title">Work Experience</div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <textarea id="experience" name="experience" rows="6" placeholder="Company Name&#10;Position Title&#10;Start Date - End Date&#10;• Key achievements&#10;• Responsibilities&#10;• Impact"></textarea>
+                        <button type="button" class="enhance-btn" onclick="enhanceText('experience')">Enhance with AI</button>
+                    </div>
+                </div>
+                
+                <div class="section-title">Education</div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <textarea id="education" name="education" rows="4" placeholder="University Name&#10;Degree & Major&#10;Graduation Date&#10;• Notable achievements or activities"></textarea>
+                        <button type="button" class="enhance-btn" onclick="enhanceText('education')">Enhance with AI</button>
+                    </div>
+                </div>
+                
+                <div class="section-title">Skills</div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <textarea id="skills" name="skills" rows="3" placeholder="List your key skills, separated by commas"></textarea>
+                        <button type="button" class="enhance-btn" onclick="enhanceText('skills')">Enhance with AI</button>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button type="submit" class="btn btn-primary">Generate Resume</button>
+                    <a href="{{ url_for('index') }}" class="btn btn-secondary">Return to Home</a>
+                </div>
+            </form>
+        </div>
+
+        <div class="preview-section">
+            <div class="preview-header">
+                <h2 id="preview-name">YOUR NAME</h2>
+                <p id="preview-title">Professional Title</p>
+                <p id="preview-contact">Email • Phone • Location</p>
+            </div>
+
+            <h3>Summary</h3>
+            <p id="preview-summary">Your professional summary will appear here...</p>
+
+            <h3>Experience</h3>
+            <div id="preview-experience">
+                <div class="experience-item">
+                    <div class="item-header">
+                        <span class="item-title">Company Name</span>
+                        <span class="item-date">Date Period</span>
+                    </div>
+                    <p>Position details will appear here...</p>
+                </div>
+            </div>
+
+            <h3>Education</h3>
+            <div id="preview-education">
+                <div class="education-item">
+                    <div class="item-header">
+                        <span class="item-title">University Name</span>
+                        <span class="item-date">Graduation Date</span>
+                    </div>
+                    <p>Degree details will appear here...</p>
+                </div>
+            </div>
+
+            <h3>Skills</h3>
+            <div class="skills-list" id="preview-skills">
+                <span class="skill-tag">Skill 1</span>
+                <span class="skill-tag">Skill 2</span>
+                <span class="skill-tag">Skill 3</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Real-time preview updates
+        document.querySelectorAll('input, textarea').forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        function updatePreview() {
+            document.getElementById('preview-name').textContent = 
+                document.getElementById('name').value || 'YOUR NAME';
+            document.getElementById('preview-title').textContent = 
+                document.getElementById('title').value || 'Professional Title';
+            document.getElementById('preview-contact').textContent = 
+                `${document.getElementById('email').value || 'Email'} • ${document.getElementById('phone').value || 'Phone'} • ${document.getElementById('location').value || 'Location'}`;
+            document.getElementById('preview-summary').textContent = 
+                document.getElementById('summary').value || 'Your professional summary will appear here...';
+            
+            // Update other sections similarly...
+        }
+
+        function enhanceText(fieldId) {
+            const textField = document.getElementById(fieldId);
+            const originalText = textField.value;
+        
+            fetch('/enhance-text', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: new URLSearchParams({
+                    'text': originalText,
+                    'field': fieldId
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    textField.value = data.enhanced_text;
+                    updatePreview();
+                } else {
+                    alert('Error enhancing text: ' + data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error enhancing text');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+
+{% block title %}View Resume{% endblock %}
+
+{% block content %}
+<style>
+    .view-container {
+        min-height: 100vh;
+        background: linear-gradient(to bottom, #f0fffd, #ffffff);
+        padding: 40px 20px;
+    }
+    .resume-container {
+        background: white;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .resume-header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #e2e8f0;
+    }
+    .resume-header h1 {
+        font-size: 32px;
+        color: #4a5568;
+        margin-bottom: 15px;
+        font-weight: 600;
+    }
+    .contact-info {
+        color: #718096;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+    .resume-section {
+        margin-bottom: 30px;
+    }
+    .resume-section h2 {
+        color: #2EC88F;
+        font-size: 22px;
+        margin-bottom: 15px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    .resume-section p {
+        color: #4a5568;
+        line-height: 1.8;
+        font-size: 16px;
+        white-space: pre-line;
+    }
+    .action-buttons {
+        display: flex;
+        gap: 15px;
+        justify-content: center;
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 2px solid #e2e8f0;
+    }
+    .btn {
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.2s;
+        text-decoration: none;
+        text-align: center;
+    }
+    .btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .btn-primary {
+        background-color: #2EC88F;
+        color: white;
+        border: none;
+    }
+    .btn-secondary {
+        background-color: white;
+        color: #2EC88F;
+        border: 2px solid #2EC88F;
+    }
+    .btn-download {
+        background-color: #4299e1;
+        color: white;
+        border: none;
+    }
+</style>
+
+<div class="view-container">
+    <div class="resume-container">
+        <div class="resume-header">
+            <h1>{{ resume[1] }}</h1>
+            <div class="contact-info">
+                <p>📧 {{ resume[2] }}</p>
+                <p>📱 {{ resume[3] }}</p>
+            </div>
+        </div>
+        
+        <div class="resume-section">
+            <h2>Professional Summary</h2>
+            <p>{{ resume[4] }}</p>
+        </div>
+        
+        <div class="resume-section">
+            <h2>Work Experience</h2>
+            <p>{{ resume[5] }}</p>
+        </div>
+        
+        <div class="resume-section">
+            <h2>Education</h2>
+            <p>{{ resume[6] }}</p>
+        </div>
+        
+        <div class="resume-section">
+            <h2>Skills</h2>
+            <p>{{ resume[7] }}</p>
+        </div>
+        
+        <div class="action-buttons">
+            <a href="{{ url_for('edit_resume', id=resume[0]) }}" class="btn btn-primary">Edit Resume</a>
+            <a href="{{ url_for('download_resume', id=resume[0]) }}" class="btn btn-download">Download PDF</a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Return Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
