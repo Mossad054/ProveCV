@@ -49,6 +49,7 @@
     }
     .features {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
         gap: 20px;
         margin-bottom: 40px;
@@ -59,10 +60,19 @@
         border-radius: 10px;
         text-align: left;
         max-width: 250px;
+        flex: 1 1 250px;
     }
     .feature-card h3 {
         color: #2EC88F;
         margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+    }
+    .feature-card h3 svg {
+        width: 24px;
+        height: 24px;
+        margin-right: 10px;
+        stroke: #2EC88F;
     }
     .cta-buttons {
         display: flex;
@@ -88,45 +98,218 @@
     .btn:hover {
         opacity: 0.9;
     }
+    .logo-img {
+        width: 30px;
+        height: 30px;
+        margin-right: 10px;
+    }
 </style>
 
 <div class="container">
     <header>
-        <div class="logo">
-            <svg viewBox="0 0 24 24" fill="none" stroke="#2EC88F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
-                <polyline points="10 9 9 9 8 9"></polyline>
-            </svg>
-            ProveCV
-        </div>
+      
         {% if not current_user.is_authenticated %}
         {% endif %}
     </header>
 
     <div class="hero-section">
-        <h1>Automate Resume Tailoring<br>with <span style="position: relative;">Generative <span style="position: absolute; left: 0; bottom: 5px; width: 100%; height: 10px; background-color: rgba(46, 200, 143, 0.3); z-index: -1;"></span></span> AI</h1>
-        <p class="lead">Stop adapting your Resume manually for each job application. Save 10s of hours of manual work. Simply upload your CV. Paste the job description. And receive your tailored CV in minutes.</p>
+        <h1>Easy-to-use platform. Create your job winning resume and start your job search!</h1>
+        <p class="lead">Build beautiful, recruiter-tested resumes in a few clicks!</p>
         
         <div class="features">
             <div class="feature-card">
-                <h3>Easy to Use</h3>
-                <p>Simple and intuitive interface to build your resume</p>
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                        <line x1="8" y1="21" x2="16" y2="21"></line>
+                        <line x1="12" y1="17" x2="12" y2="21"></line>
+                    </svg>
+                    Online Resume Builder
+                </h3>
+                <p>Create a perfect resume in minutes. All-in-one site.</p>
             </div>
             <div class="feature-card">
-                <h3>Professional Templates</h3>
-                <p>Choose from our professionally designed templates</p>
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                    </svg>
+                    AI Engine
+                </h3>
+                <p>Built-in AI engine. Auto-complete and fill data for you.</p>
             </div>
             <div class="feature-card">
-                <h3>Save & Edit</h3>
-                <p>Save your resumes and edit them anytime</p>
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                    </svg>
+                    Data Encryption
+                </h3>
+                <p>Your data is securely stored and protected.</p>
+            </div>
+            <div class="feature-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                    </svg>
+                    Approved by Recruiters
+                </h3>
+                <p>Create impressive resumes based on expert knowledge from HR experts.</p>
+            </div>
+            <div class="feature-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="3" y1="9" x2="21" y2="9"></line>
+                        <line x1="9" y1="21" x2="9" y2="9"></line>
+                    </svg>
+                    Designed Templates
+                </h3>
+                <p>Professionally designed resume templates. Get a beautiful resume in 5 minutes.</p>
+            </div>
+            <div class="feature-card">
+                <h3>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polyline points="12 6 12 12 16 14"></polyline>
+                    </svg>
+                    Save Time
+                </h3>
+                <p>Focus on job search. Build a resume in minutes and start your job search.</p>
             </div>
         </div>
 
-        <div style="background-color: rgba(255, 255, 255, 0.6); padding: 10px 20px; border-radius: 20px; display: inline-block; margin-bottom: 40px;">
-            <strong>5305</strong> custom resumes generated so far.
+        <div style="background-color: rgba(138, 224, 123, 0.6); padding: 10px 20px; border-radius: 20px; display: inline-block; margin-bottom: 40px;">
+            <strong></strong> Stand out, Get hired! .
+        </div>
+        <style>
+            @keyframes drawCheck {
+                0% { stroke-dashoffset: 100; }
+                100% { stroke-dashoffset: 0; }
+            }
+            @keyframes rotate {
+                0% { transform: rotate(0deg); }
+                100% { transform: rotate(360deg); }
+            }
+            @keyframes colorChange {
+                0%, 100% { fill: #2EC88F; }
+                50% { fill: #3498db; }
+            }
+            @keyframes bounce {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-5px); }
+            }
+            .animated-icon {
+                width: 60px;
+                height: 60px;
+                margin: 0 auto;
+            }
+            .draw-check {
+                stroke-dasharray: 100;
+                animation: drawCheck 2s ease-in-out infinite;
+            }
+            .rotate {
+                transform-origin: center;
+                animation: rotate 6s linear infinite;
+            }
+            .color-change {
+                animation: colorChange 4s ease-in-out infinite;
+            }
+            .bounce {
+                animation: bounce 2s ease-in-out infinite;
+            }
+        </style>
+        
+        <div style="margin: 60px 0;">
+            <h2 style="font-size: 36px; color: #333; text-align: center; margin-bottom: 50px;">
+                Just four simple steps to download your resume:
+            </h2>
+        
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+                <!-- Step 1 -->
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <svg class="animated-icon" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="none" stroke="#2EC88F" stroke-width="5"/>
+                            <path class="draw-check" fill="none" stroke="#2EC88F" stroke-width="5" d="M25 50 L45 70 L75 30"/>
+                        </svg>
+                    </div>
+                    <div style="background: #f5f7ff; padding: 5px 15px; border-radius: 15px; display: inline-block; margin-bottom: 10px;">
+                        <span style="color: #666;">STEP 1</span>
+                    </div>
+                    <h3 style="font-size: 20px; color: #333; margin: 10px 0;">Pick a resume template</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                        Choose a professional templates made by career experts that will help you land the interview.
+                    </p>
+                </div>
+        
+                <!-- Step 2 -->
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <svg class="animated-icon" viewBox="0 0 100 100">
+                            <g class="rotate">
+                                <path d="M30 20 L70 20 L70 80 L30 80 Z" fill="none" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M40 30 L60 30" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M40 45 L60 45" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M40 60 L60 60" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M65 15 L75 25 L65 35" fill="none" stroke="#2EC88F" stroke-width="4"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="background: #f5f7ff; padding: 5px 15px; border-radius: 15px; display: inline-block; margin-bottom: 10px;">
+                        <span style="color: #666;">STEP 2</span>
+                    </div>
+                    <h3 style="font-size: 20px; color: #333; margin: 10px 0;">Add AI-Enhanced Content </h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                        With a few clicks,customize content to match the role. add job-specific content to your resume created by Professional Resume Writers.
+                    </p>
+                </div>
+        
+                <!-- Step 3 -->
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <svg class="animated-icon" viewBox="0 0 100 100">
+                            <rect x="20" y="20" width="60" height="60" rx="5" fill="none" stroke="#2EC88F" stroke-width="4"/>
+                            <circle cx="35" cy="35" r="8" class="color-change"/>
+                            <circle cx="65" cy="35" r="8" class="color-change"/>
+                            <circle cx="35" cy="65" r="8" class="color-change"/>
+                            <circle cx="65" cy="65" r="8" class="color-change"/>
+                            <path d="M50 20 L50 80" stroke="#2EC88F" stroke-width="4"/>
+                            <path d="M20 50 L80 50" stroke="#2EC88F" stroke-width="4"/>
+                        </svg>
+                    </div>
+                    <div style="background: #f5f7ff; padding: 5px 15px; border-radius: 15px; display: inline-block; margin-bottom: 10px;">
+                        <span style="color: #666;">STEP 3</span>
+                    </div>
+                    <h3 style="font-size: 20px; color: #333; margin: 10px 0;">Personalize it</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                        Easily change the colors, fonts, and layout with our intuitive interface.
+                    </p>
+                </div>
+        
+                <!-- Step 4 -->
+                <div style="text-align: center;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; margin-bottom: 15px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+                        <svg class="animated-icon" viewBox="0 0 100 100">
+                            <g class="bounce">
+                                <path d="M30 20 L70 20 L70 60 L55 60 L50 70 L45 60 L30 60 Z" fill="none" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M40 35 L60 35" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M40 45 L60 45" stroke="#2EC88F" stroke-width="4"/>
+                                <path d="M50 70 L50 85" stroke="#2EC88F" stroke-width="4"/>
+                                <circle cx="50" cy="90" r="5" fill="#2EC88F"/>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="background: #f5f7ff; padding: 5px 15px; border-radius: 15px; display: inline-block; margin-bottom: 10px;">
+                        <span style="color: #666;">STEP 4</span>
+                    </div>
+                    <h3 style="font-size: 20px; color: #333; margin: 10px 0;">Download in PDF or DOC</h3>
+                    <p style="color: #666; font-size: 14px; line-height: 1.6;">
+                        Download your polished resume in the preferred file format and apply for your dream job immediately.
+                    </p>
+                </div>
+            </div>
         </div>
 
         <div class="cta-buttons">

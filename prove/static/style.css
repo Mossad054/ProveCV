@@ -98,12 +98,12 @@
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #00ff91cc;
     color: white;
 }
 
 .btn-secondary {
-    background-color: #6c757d;
+    background-color: #7ae25a;
     color: white;
 }
 
@@ -119,27 +119,136 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 9px 19px;
     background-color: #fff;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .nav-brand a {
-    font-size: 1.5rem;
+    font-size: 18px;
     font-weight: bold;
     color: #333;
     text-decoration: none;
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
 .nav-links a {
-    margin-left: 1.5rem;
-    color: #666;
+    font-weight: 600;
     text-decoration: none;
-    transition: color 0.3s ease;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 16px;
+    border: 2px solid #2EC88F;
+    color: #2EC88F;
+    background-color: transparent;
 }
 
 .nav-links a:hover {
-    color: #007bff;
+    background-color: rgba(46, 200, 143, 0.1);
+    transform: translateY(-1px);
+}
+
+/* Style for My Resumes */
+.nav-links a[href*="my_resumes"] {
+    border: 2px solid #2EC88F;
+    color: #2EC88F;
+    background-color: transparent;
+}
+
+.nav-links a[href*="my_resumes"]:hover {
+    background-color: rgba(46, 200, 143, 0.1);
+}
+
+/* Style for Create Resume */
+.nav-links a[href*="create"] {
+    /* Using default styles from nav-links a */
+}
+
+/* Style for Login */
+.nav-links a[href*="login"] {
+    border: 2px solid #2EC88F;
+    color: #2EC88F;
+    background-color: transparent;
+}
+
+.nav-links a[href*="login"]:hover {
+    background-color: rgba(46, 200, 143, 0.1);
+}
+
+/* Style for Sign Up */
+.nav-links a[href*="signup"] {
+    background-color: #2EC88F;
+    color: white;
+    border: 2px solid #2EC88F;
+}
+
+.nav-links a[href*="signup"]:hover {
+    background-color: #25a070;
+    border-color: #25a070;
+}
+
+/* Style for Logout */
+.nav-links a[href*="logout"] {
+    border: 2px solid #2EC88F;
+    color: #2EC88F;
+    background-color: transparent;
+}
+
+.nav-links a[href*="logout"]:hover {
+    background-color: rgba(46, 200, 143, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .nav-links {
+        gap: 10px;
+    }
+    
+    .nav-links a {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Add spacing between nav brand and links */
+.navbar {
+    padding: 9px 19px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Ensure nav-brand maintains its style */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.nav-brand a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+}
+
+/* Add hover transition for all buttons */
+.nav-links a {
+    transition: all 0.3s ease;
+}
+
+/* Add box shadow on hover for all buttons */
+.nav-links a:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 /* Flash Messages */
@@ -301,7 +410,7 @@ footer {
 }
 
 .btn-primary {
-    background-color: #007bff;
+    background-color: #2e942c;
     color: white;
 }
 
@@ -326,4 +435,244 @@ footer {
 .no-resumes p {
     margin-bottom: 1rem;
     color: #666;
+} 
+.accordion-button:not(.collapsed) {
+    background-color: #f8f9fa;
+    color: #41ce9b;
+}
+
+.accordion-button:focus {
+    box-shadow: none;
+    border-color: rgba(0,0,0,.125);
+}
+
+.accordion-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-logo {
+    width: 60px;
+    height: auto;
+    margin-right: 9px;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+.logo-img {
+    width: 75px;
+    height: auto;
+    margin-right: 9px;
+    object-fit: contain;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    padding: 6px 0;
+}
+
+.nav-brand a {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+} 
+
+/* Footer styles */
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #fff;
+    border-top: 1px solid #e2e8f0;
+    margin-top: auto;
+}
+
+footer p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    color: #4a5568;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.footer-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+footer a {
+    color: #2EC88F;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    font-weight: 600;
+}
+
+footer a:hover {
+    color: #25a070;
+}
+
+/* Updated Navigation Styles */
+.navbar-nav .nav-bold {
+    font-weight: 600;
+    color: #333 !important;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-size: 16px;
+    letter-spacing: 0.3px;
+}
+
+.navbar-nav .nav-bold:hover {
+    background-color: rgba(46, 200, 143, 0.1);
+    transform: translateY(-1px);
+    color: #2EC88F !important;
+}
+
+.navbar-nav {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+/* Active link style */
+.navbar-nav .nav-bold.active {
+    color: #2EC88F !important;
+    font-weight: 700;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav .nav-bold {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+/* Make sure the navbar is properly positioned */
+.navbar.navbar-expand-lg {
+    margin-top: auto;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar-nav .nav-bold {
+        padding: 6px 12px;
+        font-size: 14px;
+    }
+}
+
+.upload-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.upload-section h2 {
+    font-size: 1.2rem;
+    margin-bottom: 15px;
+    color: #2d3748;
+}
+
+.file-input-wrapper {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    left: -9999px;
+}
+
+.file-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 2px dashed #2EC88F;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-label:hover {
+    background-color: rgba(46, 200, 143, 0.1);
+}
+
+.file-label span {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.file-label small {
+    color: #718096;
+}
+
+.divider {
+    text-align: center;
+    margin: 30px 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background-color: #e2e8f0;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.divider span {
+    background-color: white;
+    padding: 0 15px;
+    color: #718096;
+    font-size: 14px;
+}
+
+.upload-status {
+    margin-top: 8px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.upload-status.success {
+    color: #2EC88F;
+}
+
+.upload-status.error {
+    color: #e53e3e;
+}
+
+.file-label.file-selected {
+    border-color: #2EC88F;
+    background-color: rgba(46, 200, 143, 0.1);
+}
+
+.upload-form {
+    position: relative;
+}
+
+.upload-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #2EC88F;
+    transition: width 0.3s ease;
 } 

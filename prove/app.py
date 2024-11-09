@@ -10,6 +10,9 @@ import google.generativeai as genai
 from routes.ai_routes import ai_bp
 from dotenv import load_dotenv
 import os
+from werkzeug.utils import secure_filename
+import PyPDF2
+import docx
 
 load_dotenv()  # Add this line if it's not already present
 app = Flask(__name__)
@@ -23,6 +26,8 @@ if not GOOGLE_API_KEY:
     raise ValueError("No GOOGLE_API_KEY found in environment variables")
     
 genai.configure(api_key=GOOGLE_API_KEY)
+# Initialize the model
+model = genai.GenerativeModel('gemini-pro')
 
 # Initialize Flask-Login
 login_manager = LoginManager()
@@ -181,10 +186,13 @@ def enhance_text():
     data = request.get_json()
     text = data.get('text', '')
     try:
-        # Return unmodified text if enhancement fails
-        return jsonify({'enhanced_text': text})
+        model = genai.GenerativeModel('gemini-pro')
+        prompt = f"Please enhance this professional text while maintaining its core meaning: {text}"
+        response = model.generate_content(prompt)
+        return jsonify({'enhanced_text': response.text})
     except Exception as e:
-        return jsonify({'error': str(e)}), 500
+        # Fallback to original text if enhancement fails
+        return jsonify({'enhanced_text': text, 'error': str(e)})
 
 @app.route('/download/<int:id>')
 @login_required
@@ -237,6 +245,124 @@ def register():
 
 # Register the authentication blueprint
 app.register_blueprint(auth_bp)
+@app.route('/faq')
+def faq():
+    faqs = [
+        {
+            "question": "What is ProveCV?",
+            "answer": "ProveCV is an AI-powered resume-building platform that helps users create and enhance resumes to be professional, customized, and ATS-compliant."
+        },
+        {
+            "question": "How does ProveCV work?",
+            "answer": "ProveCV allows you to input your resume details or upload an existing document. It uses AI to refine your content, suggest improvements, and help you choose from multiple templates that best fit your field and goals."
+        },
+        {
+            "question": "Can I use ProveCV to tailor my resume to specific job applications?",
+            "answer": "Yes! You can add job descriptions or key responsibilities from advertised roles, and ProveCV's AI will help align your experience to those roles, enhancing relevance for potential employers."
+        },
+        {
+            "question": "What resume formats are available?",
+            "answer": "ProveCV provides various ATS-compliant templates and formats that are customizable. You can also download your finished resume as a PDF file."
+        },
+        {
+            "question": "Is my information stored securely on ProveCV?",
+            "answer": "Yes, we prioritize data security. Your data is securely stored, and access is restricted. We also provide you with the option to delete your resumes or account at any time."
+        },
+        {
+            "question": "Do I need an account to use ProveCV?",
+            "answer": "Yes, creating an account allows ProveCV to save your resumes and previous work for easy access and future edits. However, you can preview some features without an account."
+        },
+        {
+            "question": "Does ProveCV support resume editing for existing resumes?",
+            "answer": "Absolutely! You can upload your existing resume, and ProveCV will assist in enhancing and formatting it according to your specifications and preferred template."
+        }
+    ]
+    return render_template('faq.html', faqs=faqs)
+
+# Define the upload folder path relative to the app directory
+UPLOAD_FOLDER = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'uploads')
+ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx'}
+
+# Create uploads directory if it doesn't exist
+if not os.path.exists(UPLOAD_FOLDER):
+    os.makedirs(UPLOAD_FOLDER)
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+def extract_text_from_pdf(file_path):
+    with open(file_path, 'rb') as file:
+        reader = PyPDF2.PdfReader(file)
+        text = ''
+        for page in reader.pages:
+            text += page.extract_text()
+    return text
+
+def extract_text_from_docx(file_path):
+    doc = docx.Document(file_path)
+    text = ''
+    for paragraph in doc.paragraphs:
+        text += paragraph.text + '\n'
+    return text
+
+@app.route('/upload_resume', methods=['POST'])
+@login_required
+def upload_resume():
+    try:
+        if 'resume' not in request.files:
+            flash('No file part in the request', 'error')
+            return redirect(url_for('create'))
+        
+        file = request.files['resume']
+        
+        if file.filename == '':
+            flash('No file selected', 'error')
+            return redirect(url_for('create'))
+        
+        if not allowed_file(file.filename):
+            flash('Invalid file type. Please upload PDF, DOC, or DOCX files only.', 'error')
+            return redirect(url_for('create'))
+        
+        if file and allowed_file(file.filename):
+            try:
+                filename = secure_filename(file.filename)
+                os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
+                file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                
+                # Save and process file
+                file.save(file_path)
+                
+                try:
+                    if filename.endswith('.pdf'):
+                        text = extract_text_from_pdf(file_path)
+                    else:
+                        text = extract_text_from_docx(file_path)
+                    
+                    session['uploaded_resume_text'] = text
+                    flash('Resume uploaded and processed successfully!', 'success')
+                    
+                except Exception as e:
+                    app.logger.error(f"File processing error: {str(e)}")
+                    flash('Error processing file content. Please try a different file.', 'error')
+                
+                finally:
+                    # Clean up uploaded file
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+                
+                return redirect(url_for('create'))
+                
+            except Exception as e:
+                app.logger.error(f"File save error: {str(e)}")
+                flash('Error saving file. Please try again.', 'error')
+                return redirect(url_for('create'))
+    
+    except Exception as e:
+        app.logger.error(f"Upload error: {str(e)}")
+        flash('An unexpected error occurred. Please try again.', 'error')
+        return redirect(url_for('create'))
 
 if __name__ == '__main__':
     os.makedirs('static/exports', exist_ok=True)
