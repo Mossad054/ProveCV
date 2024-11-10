@@ -7,7 +7,7 @@ class EnhancedTextAreaField(TextAreaField):
         self.widget = TextArea()
         
     def __call__(self, **kwargs):
-        # Add AI enhancement button next to the textarea
+        # Adds AI enhancement button next to the textarea.
         field_html = super().__call__(**kwargs)
         button_html = f"""
         <button type="button" 
@@ -17,4 +17,5 @@ class EnhancedTextAreaField(TextAreaField):
             Enhance with AI
         </button>
         """
+        #returns button_html
         return f"{field_html}{button_html}" 

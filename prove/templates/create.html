@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    
     <title>Create Resume</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <style>
@@ -290,6 +291,43 @@
             background-color: #2EC88F;
             transition: width 0.3s ease;
         }
+
+        .referee-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .referee-item .item-header {
+            margin-bottom: 5px;
+        }
+
+        .referee-item .item-title {
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .referee-name {
+            color: var(--primary-color);
+            font-size: 16px;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .referee-detail {
+            margin: 3px 0;
+            padding-left: 15px;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        #preview-referees {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -315,7 +353,7 @@
             </div>
 
             <div class="divider">
-                <span>OR</span>
+                <span>OR </span>
             </div>
 
             <!-- Existing form continues -->
@@ -365,7 +403,8 @@
                 <div class="section-title">Education</div>
                 <div class="form-group">
                     <div class="input-group">
-                        <textarea id="education" name="education" rows="4" placeholder="University Name&#10;Degree & Major&#10;Graduation Date&#10;• Notable achievements or activities"></textarea>
+                        <textarea id="education" name="education" rows="4" 
+                            placeholder="Institution Name&#10;Degree & Major&#10;Graduation Year&#10;• Notable achievements&#10;• Relevant coursework"></textarea>
                         <button type="button" class="enhance-btn" onclick="enhanceText('education')">Enhance with AI</button>
                     </div>
                 </div>
@@ -376,6 +415,19 @@
                         <textarea id="skills" name="skills" rows="3" placeholder="List your key skills, separated by commas"></textarea>
                         <button type="button" class="enhance-btn" onclick="enhanceText('skills')">Enhance with AI</button>
                     </div>
+                </div>
+                
+                <div class="section-title">Referees</div>
+                <div class="form-group">
+                    <div class="section-header">
+                        <label for="referees">Referees</label>
+                        <button type="button" onclick="enhanceText('referees')" class="enhance-btn">
+                            <i class="fas fa-magic"></i> Enhance
+                        </button>
+                    </div>
+                    <textarea id="referees" name="referees" class="form-control" rows="4" 
+                        placeholder="1. [Referee Name]&#10;   Position: [Current Role]&#10;   Organization: [Company/Institution]&#10;   Email: [Email Address]&#10;   Phone: [Contact Number]&#10;&#10;2. [Second Referee Details...]"></textarea>
+                    <small class="form-text text-muted">List your professional references with their contact details</small>
                 </div>
                 
                 <div class="action-buttons">
@@ -423,6 +475,13 @@
                 <span class="skill-tag">Skill 2</span>
                 <span class="skill-tag">Skill 3</span>
             </div>
+
+            <h3>Referees</h3>
+            <div id="preview-referees">
+                <div class="referee-items">
+                    <!-- Referees will be displayed here -->
+                </div>
+            </div>
         </div>
     </div>
 
@@ -442,13 +501,43 @@
             document.getElementById('preview-summary').textContent = 
                 document.getElementById('summary').value || 'Your professional summary will appear here...';
             
-            // Update other sections similarly...
+            // Updates experience section
+            const experienceText = document.getElementById('experience').value;
+            const experienceHtml = experienceText ? experienceText.split('\n').map(exp => 
+                `<div class="experience-item">
+                    <div class="item-header">
+                        <span class="item-title">${exp}</span>
+                    </div>
+                </div>`
+            ).join('') : '<p>Your experience will appear here...</p>';
+            document.getElementById('preview-experience').innerHTML = experienceHtml;
+            
+            // Updates education section
+            const educationText = document.getElementById('education').value;
+            const educationHtml = educationText ? educationText.split('\n').map(edu => 
+                `<div class="education-item">
+                    <div class="item-header">
+                        <span class="item-title">${edu}</span>
+                    </div>
+                </div>`
+            ).join('') : '<p>Your education will appear here...</p>';
+            document.getElementById('preview-education').innerHTML = educationHtml;
+            
+            // Update skills section
+            const skillsText = document.getElementById('skills').value;
+            const skillsHtml = skillsText ? skillsText.split(',').map(skill => 
+                `<span class="skill-tag">${skill.trim()}</span>`
+            ).join('') : '<span class="skill-tag">Your skills will appear here...</span>';
+            document.getElementById('preview-skills').innerHTML = skillsHtml;
+
+            // Updates referees section
+            updateRefereesPreview();
         }
 
         function enhanceText(fieldId) {
             const textField = document.getElementById(fieldId);
             const originalText = textField.value;
-        
+        // post ehannced section
             fetch('/enhance-text', {
                 method: 'POST',
                 headers: {
@@ -473,13 +562,13 @@
                 alert('Error enhancing text');
             });
         }
-
+        //Function listner to update status
         function updateFileStatus(input) {
             const fileName = document.getElementById('fileName');
             const uploadStatus = document.getElementById('uploadStatus');
             const uploadButton = document.getElementById('uploadButton');
             const fileLabel = document.getElementById('fileLabel');
-            
+            // upload listener
             if (input.files && input.files[0]) {
                 const file = input.files[0];
                 const allowedTypes = ['.pdf', '.doc', '.docx'];
@@ -504,6 +593,71 @@
                 uploadButton.disabled = true;
                 fileLabel.classList.remove('file-selected');
             }
+        }
+
+        // Add event listeners for all fields
+        document.getElementById('experience').addEventListener('input', updatePreview);
+        document.getElementById('education').addEventListener('input', updatePreview);
+        document.getElementById('skills').addEventListener('input', updatePreview);
+        document.getElementById('referees').addEventListener('input', function() {
+            updateRefereesPreview();
+        });
+
+        // Update referees section
+        function updateRefereesPreview() {
+            const refereesText = document.getElementById('referees').value;
+            const previewElement = document.getElementById('preview-referees');
+            
+            if (!refereesText.trim()) {
+                previewElement.innerHTML = '<p>Your referees will appear here...</p>';
+                return;
+            }
+
+            const refereeLines = refereesText.split('\n');
+            let currentReferee = {};
+            let refereesHtml = '<div class="referee-items">';
+
+            refereeLines.forEach(line => {
+                line = line.trim();
+                if (!line) return;
+
+                if (line.startsWith('1.') || line.startsWith('2.')) {
+                    // If we have a previous referee, add it to HTML
+                    if (currentReferee.name) {
+                        refereesHtml += formatRefereeHtml(currentReferee);
+                    }
+                    // Start new referee
+                    currentReferee = {
+                        name: line.substring(2).trim()
+                    };
+                } else {
+                    // Parse referee details
+                    const [key, value] = line.split(':').map(s => s.trim());
+                    if (key && value) {
+                        currentReferee[key.toLowerCase()] = value;
+                    }
+                }
+            });
+
+            // Add the last referee
+            if (currentReferee.name) {
+                refereesHtml += formatRefereeHtml(currentReferee);
+            }
+
+            refereesHtml += '</div>';
+            previewElement.innerHTML = refereesHtml;
+        }
+        //function to format referee 
+        function formatRefereeHtml(referee) {
+            return `
+                <div class="referee-item">
+                    <h4 class="referee-name">${referee.name}</h4>
+                    ${referee.position ? `<p class="referee-detail">Position: ${referee.position}</p>` : ''}
+                    ${referee.organization ? `<p class="referee-detail">Organization: ${referee.organization}</p>` : ''}
+                    ${referee.email ? `<p class="referee-detail">Email: ${referee.email}</p>` : ''}
+                    ${referee.phone ? `<p class="referee-detail">Phone: ${referee.phone}</p>` : ''}
+                </div>
+            `;
         }
     </script>
 </body>

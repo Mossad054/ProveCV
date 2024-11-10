@@ -13,7 +13,7 @@ class AuthTestCase(unittest.TestCase):
         self.db_fd, self.db_path = tempfile.mkstemp()
         app.config['DATABASE'] = self.db_path
         app.config['TESTING'] = True
-        app.config['WTF_CSRF_ENABLED'] = False  # Disable CSRF for testing
+        app.config['WTF_CSRF_ENABLED'] = False  
         self.client = app.test_client()
         init_db()
 
@@ -77,12 +77,13 @@ class AuthTestCase(unittest.TestCase):
         # Test signup with an email that already exists
         response = self.client.post('/signup', data={
             'username': 'anotheruser',
-            'email': 'test@example.com',  # Existing email
+            'email': 'test@example.com', 
             'password': 'newpassword',
             'confirm_password': 'newpassword'
         }, follow_redirects=True)
         
         self.assertIn(b'Email already exists', response.data)
-
+#End of test case
 if __name__ == '__main__':
     unittest.main()
+#End of test case

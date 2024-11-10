@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Login{% endblock %}
-
+<!-- Login container -->
 {% block content %}
 <style>
     .login-container {
@@ -132,8 +132,11 @@
     }
 </style>
 
+<!-- Login container -->
 <div class="login-container">
+    <!-- Login header -->
     <h1 class="login-header">Please, sign in to edit your resume for free!</h1>
+    <!-- Login form -->
     <div class="login-form">
         <form method="POST" action="">
             {{ form.hidden_tag() }}
@@ -149,17 +152,18 @@
                     <span class="error">{{ error }}</span>
                 {% endfor %}
             </div>
+            <!-- Login button -->
             {{ form.submit(class="btn btn-primary", value="Continue with email") }}
-            
+            <!-- Forgot password link -->
             <div class="forgot-password">
                 <a href="{{ url_for('auth.logout') }}">Forgot your password?</a>
             </div>
-
+            <!-- Divider -->
             <div class="divider">
                 <span>or</span>
             </div>
         </form>
-        
+        <!-- Register link -->
         <div class="register-link">
             Do not have an account? <a href="{{ url_for('auth.signup') }}">Register now</a>
         </div>

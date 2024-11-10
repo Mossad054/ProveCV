@@ -18,9 +18,9 @@ def run_migrations():
             upgrade()
             
         print("Migration completed successfully!")
-        
+    #Return migration error
     except Exception as e:
         print(f"Error during migration: {str(e)}")
-
+#Run migrations
 if __name__ == "__main__":
     run_migrations() 

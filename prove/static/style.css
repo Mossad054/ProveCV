@@ -112,7 +112,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-/* Add these to your existing CSS */
+
 
 /* Navbar */
 .navbar {
@@ -167,7 +167,7 @@
 
 /* Style for Create Resume */
 .nav-links a[href*="create"] {
-    /* Using default styles from nav-links a */
+   
 }
 
 /* Style for Login */
@@ -216,7 +216,7 @@
     }
 }
 
-/* Add spacing between nav brand and links */
+
 .navbar {
     padding: 9px 19px;
     display: flex;
@@ -226,7 +226,7 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Ensure nav-brand maintains its style */
+/* Ensuring nav-brand maintains its style */
 .nav-brand {
     display: flex;
     align-items: center;
@@ -240,12 +240,12 @@
     text-decoration: none;
 }
 
-/* Add hover transition for all buttons */
+/* Adding hover transition for all buttons */
 .nav-links a {
     transition: all 0.3s ease;
 }
 
-/* Add box shadow on hover for all buttons */
+/* Adding box shadow on hover for all buttons */
 .nav-links a:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -351,7 +351,7 @@ footer {
     color: #666;
 }
 
-/* Add these styles if not already present */
+
 .container {
     max-width: 1200px;
     margin: 0 auto;
@@ -552,7 +552,7 @@ footer a:hover {
     }
 }
 
-/* Make sure the navbar is properly positioned */
+
 .navbar.navbar-expand-lg {
     margin-top: auto;
     border-top: 1px solid #e2e8f0;
@@ -675,4 +675,28 @@ footer a:hover {
     height: 2px;
     background-color: #2EC88F;
     transition: width 0.3s ease;
-} 
+}
+
+.register-alternate {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.referee-item {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.referee-name {
+    color: var(--text-color);
+    font-size: 16px;
+    margin: 0 0 10px 0;
+}
+
+.referee-detail {
+    margin: 5px 0;
+    color: var(--text-color);
+    font-size: 14px;
+}

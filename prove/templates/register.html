@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}Register{% endblock %}
-
+<!-- Register container -->
 {% block content %}
 <style>
     .register-container {
@@ -97,18 +97,26 @@
         outline: none;
         box-shadow: 0 0 0 3px rgba(46, 200, 143, 0.3);
     }
+    .register-alternate {
+        text-align: center;
+        margin: 20px 0;
+    }
 </style>
-
+<!-- Register container -->
 <div class="register-container">
     <div class="register-form">
         <div class="register-header">
+            <!-- Register header -->
             <h2>Create your account</h2>
+        </div>
+        <div class="register-alternate" style="text-align: center; margin: 20px 0;">
+            <!-- Register alternate -->
             <p>Or <a href="{{ url_for('auth.login') }}">sign in to your existing account</a></p>
         </div>
-
+        <!-- Register form -->
         <form method="POST">
             {{ form.hidden_tag() }}
-            
+            <!-- Username form group -->
             <div class="form-group">
                 {{ form.username.label(class="form-label") }}
                 {{ form.username(class="form-control", placeholder="Enter your username") }}
@@ -118,7 +126,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-
+            <!-- Email form group -->
             <div class="form-group">
                 {{ form.email.label(class="form-label") }}
                 {{ form.email(class="form-control", placeholder="Enter your email") }}
@@ -128,7 +136,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-
+            <!-- Password form group -->
             <div class="form-group">
                 {{ form.password.label(class="form-label") }}
                 {{ form.password(class="form-control", placeholder="Enter your password") }}
@@ -138,7 +146,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-
+            <!-- Confirm password form group -->
             <div class="form-group">
                 {{ form.confirm_password.label(class="form-label") }}
                 {{ form.confirm_password(class="form-control", placeholder="Confirm your password") }}
@@ -148,7 +156,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-
+        
             {{ form.submit(class="btn btn-primary", value="Create Account") }}
         </form>
     </div>

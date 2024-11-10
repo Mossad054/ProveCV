@@ -1,15 +1,15 @@
 import sqlite3
 
 def init_database():
-    # Connect to SQLite database (creates it if it doesn't exist)
+    # Connects to SQLite database (creates it if it doesn't exist)
     conn = sqlite3.connect('resumes.db')
     print("Connected to database successfully")
 
     try:
-        # Create a cursor object to execute SQL commands
+        # Creates a cursor object to execute SQL commands
         cursor = conn.cursor()
 
-        # Create users table
+        # Creates users table id if doesn't exist.
         cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -19,7 +19,7 @@ def init_database():
         )
         ''')
 
-        # Commit the changes
+        # Commit the changes to the database.
         conn.commit()
         print("Users table created successfully")
 
@@ -27,7 +27,7 @@ def init_database():
         print(f"An error occurred: {e}")
 
     finally:
-        # Close the connection
+        # Closes datbase the connection
         conn.close()
         print("Database connection closed")
 

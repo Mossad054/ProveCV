@@ -1,9 +1,11 @@
 {% extends "base.html" %}
-
+<!-- FAQ container -->
 {% block content %}
 <div class="container my-5">
+    <!-- FAQ title -->
     <h1 class="mb-4">Frequently Asked Questions</h1>
     
+    <!-- FAQ accordion -->
     <div class="accordion" id="faqAccordion">
         {% for faq in faqs %}
         <div class="accordion-item">

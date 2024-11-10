@@ -81,8 +81,9 @@
         margin-top: 5px;
     }
 </style>
-
+<!-- Signup container -->
 <div class="signup-container">
+    <!-- Signup header -->
     <h1 class="signup-header">Create your account</h1>
     <div class="signup-form">
         <form method="POST" action="">
@@ -107,7 +108,7 @@
                     <span class="error">{{ error }}</span>
                 {% endfor %}
             </div>
-            
+            <!-- Confirm password form group -->
             <div class="form-group">
                 {{ form.confirm_password(class="form-control", placeholder="Confirm your password") }}
                 {% for error in form.confirm_password.errors %}
@@ -117,7 +118,7 @@
             
             {{ form.submit(class="btn btn-primary", value="Sign Up") }}
         </form>
-        
+        <!-- Login link -->
         <div class="login-link">
             Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a>
         </div>

@@ -88,7 +88,7 @@
         border: none;
     }
 </style>
-
+<!-- View container -->
 <div class="view-container">
     <div class="resume-container">
         <div class="resume-header">
@@ -98,7 +98,7 @@
                 <p>📱 {{ resume[3] }}</p>
             </div>
         </div>
-        
+        <!-- Professional summary section -->
         <div class="resume-section">
             <h2>Professional Summary</h2>
             <p>{{ resume[4] }}</p>
@@ -119,6 +119,12 @@
             <p>{{ resume[7] }}</p>
         </div>
         
+        <div class="resume-section">
+            <h2>Referees</h2>
+            <p>{{ resume[8] }}</p>
+        </div>
+        
+        <!-- Action buttons -->
         <div class="action-buttons">
             <a href="{{ url_for('edit_resume', id=resume[0]) }}" class="btn btn-primary">Edit Resume</a>
             <a href="{{ url_for('download_resume', id=resume[0]) }}" class="btn btn-download">Download PDF</a>
