@@ -10,7 +10,7 @@ ProveCV simplifies the resume creation process, helping users build professional
 - Architecture and Data Flow](#architecture-and-data-flow)
 - Setup and Installation.
   - Windows Installation
-    -Linux Installation
+  - Linux Installation
 - Usage
 - Contributing
 
